@@ -7,7 +7,7 @@ const router =  Router();
 //config
 
 router.get('/',handler_home);
-router.set('/formulario',handle_set_form);
+router.post('/formulario',handle_set_form);
 
 //export
 module.exports=router;
