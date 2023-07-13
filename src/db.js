@@ -6,7 +6,7 @@ const path = require('path');
 // instancias y config
 const {
   POSTGRES_USER, POSTGRES_PASSWORD, POSTGRES_HOST,POSTGRES_DATABASE
-} = process.env;
+} = process.env.local;
 const sequelize = new Sequelize(`postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}/${POSTGRES_DATABASE}`, {
   logging: false, // set to console.log to see the raw SQL queries
   native: false, // lets Sequelize know we can use pg-native for ~30% more speed
