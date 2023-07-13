@@ -5,6 +5,7 @@ const {POSTGRES_DATABASE,POSTGRES_PASSWORD,POSTGRES_HOST,POSTGRES_USER} = proces
 const sequelize = new Sequelize(POSTGRES_DATABASE, POSTGRES_USER, POSTGRES_PASSWORD, {
   host: POSTGRES_HOST,
   dialect: 'postgres',
+  dialectModule:require('pg'),
   dialectOptions: {
     ssl: {
       require: true,
