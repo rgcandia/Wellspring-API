@@ -1,5 +1,17 @@
 const { Sequelize } = require('sequelize');
-const sequelize = new Sequelize('postgres://default:teDw5MuWdGB6@ep-black-fire-482660.us-east-1.postgres.vercel-storage.com:5432/verceldb') // Example for postgres
-module.exports ={
+require('dotenv').config();
+const {POSTGRES_DATABASE,POSTGRES_PASSWORD,POSTGRES_HOST,POSTGRES_USER} = process.env;
+const sequelize = new Sequelize(POSTGRES_DATABASE, POSTGRES_USER, POSTGRES_PASSWORD, {
+  host: POSTGRES_HOST,
+  dialect: 'postgres',
+  dialectOptions: {
+    ssl: {
+      require: true,
+      rejectUnauthorized: false, // Solo si estás en desarrollo
+    },
+  },
+});
+
+module.exports = {
   conn:sequelize
 }
