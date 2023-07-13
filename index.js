@@ -11,4 +11,6 @@ conn.sync().then(()=>{
         console.log('Servidor Listo en puerto : '+PORT)
     });
     
+}).catch((res)=>{
+    console.log(res)
 })
