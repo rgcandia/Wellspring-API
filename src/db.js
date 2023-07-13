@@ -8,7 +8,6 @@ const sequelize = new Sequelize(POSTGRES_DATABASE, POSTGRES_USER, POSTGRES_PASSW
   dialectOptions: {
     ssl: {
       require: true,
-      rejectUnauthorized: false, // Solo si estás en desarrollo
     },
   },
 });
