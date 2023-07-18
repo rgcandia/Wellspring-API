@@ -1,6 +1,6 @@
 const {DataTypes} =  require('sequelize');
 module.exports=(sequelize)=>{
-    sequelize.define('form',{
+    sequelize.define('modelform',{
         id:{
             type:DataTypes.INTEGER,
             primaryKey:true,
@@ -13,6 +13,10 @@ module.exports=(sequelize)=>{
         
         data:{
             type:DataTypes.JSON,           
+        },
+        pending:{
+            type:DataTypes.BOOLEAN,
+            defaultValue:true,
         }
 
     });
