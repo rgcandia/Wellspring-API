@@ -1,4 +1,5 @@
 const {Server} = require('socket.io')
+import {getFormsByEmail} from './services.js'
 let io;
 //inicializo el SOCKET con el httpServer pasado por parámetro.
 module.exports = function initialSocket(httpServer){
@@ -17,6 +18,21 @@ module.exports = function initialSocket(httpServer){
       console.log(`Disconnected: ${socket.id}`);
       
     });
+
+    // Pongo a escuchar eventos
+ io.on('join',async (email)=>{
+
+  const forms = await getFormsByEmail(email)
+  
+  socket.emit('forms',forms);
+  
+ });
+
+
+
+
+
+
 
 
  return io;
