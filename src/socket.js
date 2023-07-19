@@ -1,5 +1,5 @@
 const {Server} = require('socket.io')
-import {getFormsByEmail} from './services.js'
+const {getFormsByEmail} = require ('./services.js')
 let io;
 //inicializo el SOCKET con el httpServer pasado por parámetro.
 module.exports = function initialSocket(httpServer){
