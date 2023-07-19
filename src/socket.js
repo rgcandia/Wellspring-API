@@ -1,5 +1,5 @@
 const { Server } = require('socket.io');
-const { getFormsByEmail, createForm } = require('./services.js');
+const { getFormsByEmail, createForm ,updateForm} = require('./services.js');
 
 let io;
 
@@ -31,6 +31,16 @@ function initialSocket(httpServer) {
       const forms = await getFormsByEmail(email);
       io.emit(email, forms);
     });
+
+    //config updateForm
+    socket.on('updateForm',async ({id,form})=>{
+      const email = updateForm({id,form});
+      const forms = await getFormsByEmail(email);
+      io.emit(email, forms);
+    })
+
+
+
   });
 
   return io;
