@@ -100,7 +100,7 @@ async function getFormsByEmail(email) {
 }
 
 // update Form
-export const updateForm = async ({ id, form }) => {
+ const updateForm = async ({ id, form }) => {
   try {
     // Buscar el formulario por el id
     const existingForm = await Form.findByPk(id);
