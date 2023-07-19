@@ -84,6 +84,8 @@ const completedForm = async (id, data) => {
 
 //  devolver Forms
 async function getFormsByEmail(email) {
+ console.log("se buscva el form del imail")
+  console.log(email)
   try {
     const forms = await Form.findAll({
       where: {
@@ -93,7 +95,7 @@ async function getFormsByEmail(email) {
     return forms;
   } catch (error) {
     console.error('Error al buscar los formularios por email:', error);
-    throw error;
+    
   }
 }
 //Exports

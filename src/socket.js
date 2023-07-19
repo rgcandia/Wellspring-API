@@ -1,47 +1,39 @@
-const {Server} = require('socket.io')
-const {getFormsByEmail,createForm} = require ('./services.js')
-let io;
-//inicializo el SOCKET con el httpServer pasado por parámetro.
-module.exports = function initialSocket(httpServer){
-   io = new Server(httpServer,{
-    cors:{
-        origin:'*',
-    }
-   });
+const { Server } = require('socket.io');
+const { getFormsByEmail, createForm } = require('./services.js');
 
-// Pongo a escuchar 
-  //Pongo a escuchar io
-  io.on("connection", (socket) => {
+let io;
+
+// Función para inicializar el SOCKET con el httpServer pasado por parámetro.
+function initialSocket(httpServer) {
+  io = new Server(httpServer, {
+    cors: {
+      origin: '*',
+    }
+  });
+
+  // Pongo a escuchar eventos de conexión
+  io.on('connection', (socket) => {
     console.log(`Connected: ${socket.id}`);
 
-    socket.on("disconnect", async () => {
+    socket.on('disconnect', () => {
       console.log(`Disconnected: ${socket.id}`);
-      
     });
 
-    // Pongo a escuchar eventos
- io.on('join',async (email)=>{
+    // Pongo a escuchar evento "join" para obtener los formularios por email
+    socket.on('join', async (email) => {
+      const forms = await getFormsByEmail(email);
+      socket.emit('forms', forms);
+    });
 
-  const forms = await getFormsByEmail(email)
-  
-  socket.emit('forms',forms);
-  
- });
+    // Pongo a escuchar evento "setForm" para crear un formulario para el email pasado por parámetro
+    socket.on('setForm', async (email) => {
+      let form = await createForm(email);
+      const forms = await getFormsByEmail(email);
+      io.emit(email, forms);
+    });
+  });
 
-
-// set form event , crea un formulario para el mail paswado por parametro
-io.on('setForm',async (email)=>{
-  let form = await createForm(email);
-  const forms = await getFormsByEmail(email)
-  socket.emit(email,forms);
-});
-
-
-
-
-
- return io;
-})
-
-
+  return io;
 }
+
+module.exports = initialSocket;
