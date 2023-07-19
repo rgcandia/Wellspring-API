@@ -34,9 +34,9 @@ function initialSocket(httpServer) {
 
     //config updateForm
     socket.on('updateForm',async ({id,form})=>{
-      const email = updateForm({id,form});
+      const email = await updateForm({id,form});
       const forms = await getFormsByEmail(email);
-      socket.emit(email, forms);
+      socket.emit("forms", forms);
     })
 
 
