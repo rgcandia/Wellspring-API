@@ -33,10 +33,10 @@ function initialSocket(httpServer) {
     });
 
     //config updateForm
-    socket.on('updateForm',async ({id,form})=>{
+    socket.on('updateForm',async ({id,form,user})=>{
       const email = updateForm({id,form});
-      const forms = await getFormsByEmail(email);
-      io.emit(email, forms);
+      const forms = await getFormsByEmail(user);
+      io.emit(user, forms);
     })
 
 
