@@ -1,5 +1,5 @@
 const {Server} = require('socket.io')
-const {getFormsByEmail} = require ('./services.js')
+const {getFormsByEmail,createForm} = require ('./services.js')
 let io;
 //inicializo el SOCKET con el httpServer pasado por parámetro.
 module.exports = function initialSocket(httpServer){
@@ -29,7 +29,12 @@ module.exports = function initialSocket(httpServer){
  });
 
 
-
+// set form event , crea un formulario para el mail paswado por parametro
+io.on('setForm',async (email)=>{
+  let form = await createForm(email);
+  const forms = await getFormsByEmail(email)
+  socket.emit(email,forms);
+});
 
 
 

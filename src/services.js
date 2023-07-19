@@ -53,6 +53,7 @@ const createForm = async (user, model = data) => {
     email: user,
     model,
   });
+  return form;
   
 };
 //Completa el formulario
