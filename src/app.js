@@ -7,9 +7,7 @@ const http = require('http');
 const initialSocket = require('./socket.js')
 // instancias
 const app =  express();
-const httpServer = http.createServer(app)
-//inicio socket
-initialSocket(httpServer);
+
 
 app.name = 'Wellspring API';
 app.use(morgan('dev'));
@@ -23,8 +21,10 @@ app.use((req, res, next) => {
     next();
   });
 app.use('/',router);
-
+const httpServer = http.createServer(app)
+//inicio socket
+initialSocket(httpServer);
 
 
   //export
-  module.exports = app;
+  module.exports =httpServer ;
