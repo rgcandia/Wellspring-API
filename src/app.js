@@ -3,9 +3,14 @@ const express =  require('express');
 const morgan = require('morgan');
 const cors = require('cors')
 const router = require('./routes/index.js')
-
+const http = require('http');
+const initialSocket = require('./socket.js')
 // instancias
 const app =  express();
+const httpServer = http.createServer(app)
+//inicio socket
+initialSocket(httpServer);
+
 app.name = 'Wellspring API';
 app.use(morgan('dev'));
 app.use(cors());
