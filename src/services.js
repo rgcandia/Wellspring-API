@@ -1,4 +1,4 @@
-const { conn, Modelform,Form} = require('./db.js');
+const { conn,Form} = require('./db.js');
 
 const data = [
     {
@@ -46,17 +46,55 @@ const data = [
      
     ];
 
-module.exports = async ()=>{
+// Function
+//Crea formulario pendiente con modelo.
+const createForm = async (user, model = data) => {
+  let form = await Form.create({
+    email: user,
+    model,
+  });
+  
+};
+//Completa el formulario
+const completedForm = async (id, data) => {
+  try {
+    // Find the form with the given id
+    const form = await Form.findByPk(id);
+
+    if (!form) {
+      // Form with the given id not found
+      return null;
+    }
+
+    // Update the form's data and pending properties
+    form.data = data;
+    form.pending = false;
     
-    let CreateModelForm = await Modelform.create(
-        {
-            email:'admin@wellspring.edu.ar',
-            data
+    // Save the changes to the database
+    await form.save();
 
-        }
-    );
-     
-        return console.log("Formulario creado")
+    return form;
+  } catch (error) {
+    console.error('Error updating form:', error);
+    throw error;
+  }
+};
+
+
+//  devolver Forms
+async function getFormsByEmail(email) {
+  try {
+    const forms = await Form.findAll({
+      where: {
+        email: email,
+      },
+    });
+    return forms;
+  } catch (error) {
+    console.error('Error al buscar los formularios por email:', error);
+    throw error;
+  }
 }
-
+//Exports
+ module.exports = {createForm,completedForm,getFormsByEmail}
 
