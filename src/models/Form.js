@@ -13,6 +13,13 @@ module.exports=(sequelize)=>{
         
         data:{
             type:DataTypes.JSON,           
+        },
+        model:{
+            type:DataTypes.JSON,
+        },
+        pending:{
+            type:DataTypes.BOOLEAN,
+            defaultValue:true,
         }
 
     });
