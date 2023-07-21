@@ -1,5 +1,5 @@
 const { Server } = require('socket.io');
-const { getFormsByEmail, createForm ,updateForm} = require('./services.js');
+const { getFormsByEmail, createForm ,updateForm,getModels} = require('./services.js');
 
 let io;
 
@@ -22,12 +22,14 @@ function initialSocket(httpServer) {
     // Pongo a escuchar evento "join" para obtener los formularios por email
     socket.on('join', async (email) => {
       const forms = await getFormsByEmail(email);
+      const models =  await getModels();
       socket.emit('forms', forms);
+      socket.emit('models',models);
     });
 
     // Pongo a escuchar evento "setForm" para crear un formulario para el email pasado por parámetro
-    socket.on('setForm', async (email) => {
-      let form = await createForm(email);
+    socket.on('setForm', async (email,idModel) => {
+      let form = await createForm(email,idModel);
       const forms = await getFormsByEmail(email);
       io.emit(email, forms);
     });

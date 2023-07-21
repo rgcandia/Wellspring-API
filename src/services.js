@@ -1,4 +1,4 @@
-const { conn,Form} = require('./db.js');
+const { conn,Form,Model} = require('./db.js');
 
 const data = [
     {
@@ -48,7 +48,7 @@ const data = [
 
 // Function
 //Crea formulario pendiente con modelo.
-const createForm = async (user, model = data) => {
+const createForm = async (user, model =1) => {
   let form = await Form.create({
     email: user,
     model,
@@ -84,8 +84,6 @@ const completedForm = async (id, data) => {
 
 //  devolver Forms
 async function getFormsByEmail(email) {
- console.log("se buscva el form del imail")
-  console.log(email)
   try {
     const forms = await Form.findAll({
       where: {
@@ -98,7 +96,15 @@ async function getFormsByEmail(email) {
     
   }
 }
-
+//devuelve los modelos 
+async function getModels(){
+try {
+  const models = await Model.findAll();
+  return models;
+} catch (error) {
+  console.log('Error al buswcar los Models',error)
+}
+}
 // update Form
  const updateForm = async ({ id, form }) => {
   try {
@@ -128,5 +134,5 @@ async function getFormsByEmail(email) {
 
 
 //Exports
- module.exports = {createForm,completedForm,getFormsByEmail,updateForm}
+ module.exports = {createForm,completedForm,getFormsByEmail,updateForm,getModels}
 
