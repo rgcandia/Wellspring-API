@@ -7,7 +7,7 @@ const {PORT} = process.env;
 
 conn.sync().then(()=>{
   
-    modelFormSevice();
+    // modelFormSevice();
     console.log('db sincronizada')
     server.listen(PORT,()=>{
         console.log('Servidor Listo en puerto : '+PORT)
