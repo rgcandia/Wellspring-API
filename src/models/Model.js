@@ -6,11 +6,20 @@ module.exports=(sequelize)=>{
             primaryKey:true,
             autoIncrement:true,
         },
+        type:{
+            type:DataTypes.STRING,
+        },
         data:{
             type:DataTypes.JSON,           
         },
         name:{
             type:DataTypes.STRING,
+        },
+        description:{
+            type:DataTypes.STRING,
+        },
+        section:{
+            type:DataTypes.JSON,
         }
     });
 }

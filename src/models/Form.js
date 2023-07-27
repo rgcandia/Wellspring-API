@@ -6,6 +6,12 @@ module.exports=(sequelize)=>{
             primaryKey:true,
             autoIncrement:true,
         },
+        name:{
+            type:DataTypes.STRING,
+        },
+        description:{
+            type:DataTypes.STRING,
+        },
         email:{
             type:DataTypes.STRING,
 
