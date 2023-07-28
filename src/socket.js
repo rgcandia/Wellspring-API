@@ -28,7 +28,8 @@ function initialSocket(httpServer) {
     });
 
     // Pongo a escuchar evento "setForm" para crear un formulario para el email pasado por parámetro
-    socket.on('setForm', async (email,idModel) => {
+    socket.on('setForm', async ({email,idModel}) => {
+      console.log("LLEGA MODELO "+idModel)
       let form = await createForm(email,idModel);
       const forms = await getFormsByEmail(email);
       io.emit(email, forms);

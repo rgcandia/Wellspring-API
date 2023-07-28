@@ -2,7 +2,7 @@ const { Model} = require('./db.js');
 module.exports = async()=>{
 let model = await Model.create({
 data,
-name:'default'
+name:'solicitud de evento'
 })
 return model;
 }
