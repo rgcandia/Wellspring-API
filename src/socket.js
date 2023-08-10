@@ -1,6 +1,6 @@
 const { Server } = require('socket.io');
 const { getFormsByEmail, createForm ,updateForm,getModels} = require('./services.js');
-
+const {emailHandler} = require('./emailHandler.js')
 let io;
 
 // Función para inicializar el SOCKET con el httpServer pasado por parámetro.
@@ -38,7 +38,8 @@ function initialSocket(httpServer) {
     //config updateForm
     socket.on('updateForm',async ({id,form})=>{
       const email = await updateForm({id,form});
-      const forms = await getFormsByEmail(email);
+      const forms = await getFormsByEmail(email)
+      await emailHandler(form);
       socket.emit("forms", forms);
     })
 
