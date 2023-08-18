@@ -86,8 +86,25 @@ try {
     throw error;
   }
 };
+// Elimina un formulario pendiente
+const deleteFormPending =  async (id)=>{
+let value = false;
+ Form.destroy({
+  where: {
+    id
+  }
+})
+.then(() => {
+  console.log('Formulario eliminado exitosamente');
+})
+.catch(err => {
+  console.error('Error al intentar eliminar el formulario:', err);
+});
 
+
+
+}
 
 //Exports
- module.exports = {createForm,completedForm,getFormsByEmail,updateForm,getModels}
+ module.exports = {createForm,completedForm,getFormsByEmail,updateForm,getModels,deleteFormPending}
 

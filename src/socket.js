@@ -1,5 +1,10 @@
 const { Server } = require('socket.io');
-const { getFormsByEmail, createForm ,updateForm,getModels} = require('./services.js');
+const { getFormsByEmail, 
+  createForm ,
+  updateForm,
+  getModels,
+  deleteFormPending} 
+  = require('./services.js');
 const {emailHandler} = require('./emailHandler.js')
 let io;
 
@@ -43,7 +48,13 @@ function initialSocket(httpServer) {
       socket.emit("forms", forms);
     })
 
+  // Escucho evento deleteFormPending
+  socket.on('deleteFormPending',async({id,user})=>{
+     await deleteFormPending(id);
+      const forms = await getFormsByEmail(user)
+      socket.emit("forms", forms);
 
+  })
 
   });
 
